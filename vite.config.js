@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/react'
+import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/wemake_homepage/', // 반드시 저장소 이름 앞뒤로 /를 붙여주세요!
+  base: '/wemake_homepage/', // GitHub Pages 배포를 위한 정확한 경로 설정
 })
