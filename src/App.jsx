@@ -13,7 +13,7 @@ import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
-    <Router basename="/wemake_homepage">
+    <Router basename="/">
       <ScrollToTop />
       <Layout>
         <Routes>
