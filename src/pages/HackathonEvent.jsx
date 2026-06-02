@@ -1,146 +1,119 @@
-import logo from '../assets/logo.png'
-import hackathonHero from '../assets/hackathon_hero.png'
-
 const HackathonEvent = () => {
-    const processes = [
-        { step: '단계 01', title: '컨셉 디자인 (Concepting)', desc: '행사의 목적과 캠프 테마에 부합하는 최적의 커리큘럼 및 챌린지 시나리오 설계', icon: 'architecture' },
-        { step: '단계 02', title: '학습자 모집 (Engagement)', desc: '타겟 맞춤형 홍보 전략 수립 및 몰입형 학습 환경 조성을 위한 사전 지원 시스템 구축', icon: 'inventory_2' },
-        { step: '단계 03', title: '토털 운영 (Full Ops)', desc: '전문 퍼실리테이터 투입, 실시간 멘토링 매칭 및 안전한 캠프 현장 관리 총괄', icon: 'settings_b_roll' },
-        { step: '단계 04', title: '포스트 케어 (Post-care)', desc: '참가자 중심의 심층 결과 분석 및 후속 프로젝트 연계 지원 시스템 제공', icon: 'monitoring' }
-    ]
+  const processes = [
+    { step: '01', title: '기획 & 설계', desc: '행사 목적과 대상에 맞는 커리큘럼, 챌린지 시나리오, 운영 계획을 함께 설계합니다.', icon: '🗺️' },
+    { step: '02', title: '홍보 & 모집', desc: '타겟에 맞는 홍보 전략을 수립하고 참가자 모집부터 사전 안내까지 지원합니다.', icon: '📣' },
+    { step: '03', title: '현장 운영', desc: '전문 퍼실리테이터와 멘토가 투입되어 행사 전 과정을 안전하게 총괄합니다.', icon: '🎯' },
+    { step: '04', title: '결과 정리', desc: '참가자 피드백 수집, 결과 보고서 작성, 후속 연계 프로그램까지 지원합니다.', icon: '📋' },
+  ]
 
-    const portfolio = [
-        { 
-            title: '중고등 몰입형 SW 겨울캠프', 
-            desc: '미래 원천 기술 고도화를 테마로 한 3박 4일 집중 교육 캠프 운영', 
-            tag: 'SW CAMP', 
-            size: 'lg',
-            img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCbwq1HiiIe3L4dwDw-Q7_HotjKqWmTLT3kXzLFoXI2UceAoYnVoJuEvjcWmTTSOMrW3HyGLnQEAMwwv-BxWsru7q6A7wISQ6ywevni9frJDRGdJ2tEyNHn8HfDYv8j1EkvzNzA2SAkfEWLQ-tu5PzNmyPUMQqba1hSOxnDR3QmBb0cFYa0dCMjaMJZoHLyR5VZuwbRUe5D6-S9wi0v7GqW6sATI4YkzSsAxtcZk2ki_VOnk6QVulAB-7mYUWn_3AhN8dm2giMouoU' 
-        },
-        { 
-            title: '청소년 AI 아이디어톤', 
-            desc: '실생활 문제 해결을 위한 창의적 알고리즘 설계 챌린지', 
-            tag: 'HACKATHON', 
-            size: 'sm',
-            img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAwWj5LaeutvmcMwQRe-wrKsNJ2Lfv2omxSREOqhDj3t2y2uJA2zc-OrMG7f2CeSaY-hcCEh-brZQ3DIBZA4bonDFpQiNqb52ODLziTYhas2VutrfW52MNDl34AQJGEnAUrQZCGdTGdiJ2dW-XKAy-M5y1U1sNdrE0LPhIbr7ZJsZBoMu_uWTI9uB37N3L_HEn8hfi4gvxReZpnP-bst3ao79QRr394Otqz_Z_WNwqSL9vN0FqKfdDf2yx8qex6n9adkwa9n-SeLlM' 
-        },
-        { 
-            title: '창의융합 성과 공유회', 
-            desc: '지역 교육 공동체 성과 전시 및 네트워킹 이벤트', 
-            tag: 'EVENT', 
-            size: 'sm',
-            img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAW0RSjWt-HBhwP6N3cVQvd4aFOzioT7DCq9Ne0F9ypfL9uxGdbsn0XYObxohZv50TLgbvR1J6crDW6LHVYVKxUK1GTNGpx3fml3ziJkT5lyq4fU4qLaOhvrLvkjo3TtfTYFSomBcwYbprNmgHVnu0o5xrAKMb_n2_NrcCTZbQkuIperNWIsViwtLHNA2P0N-oeb8vlIafE_bTU-DIIgXW0-btznqNR3612jtAZvJ2-j9laDYYQJOfGZK-hIDjXhO-CQMJ49gqGDxA' 
-        },
-        { 
-            title: '영재 교육 코딩 부트캠프', 
-            desc: '단시간 내에 핵심 개발 역량을 끌어올리는 몰입형 코딩 교육', 
-            tag: 'BOOTCAMP', 
-            size: 'lg',
-            img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBqwePV9XBAfZBT3tfIFgECVmnB59UHOVB76LN0L2EWsO8joGnR6ToTy562PJ8tvg7bqeaOOobUepojcJQ1nwGlBndeNMPUcQi1BaJa2BhUhZ96RdBS4fXLcH4sLywW-2oSGoRrjdQDxV9lkqkCB0c7TySlJOUtoZn44dLlhGE_eF7nHu85Ot3IjfLbbyMjyODEHsxT5TtW_R9J8Zl0jqsReqyFEk_CrfrWFV1b5AkpiNEN7BqCFUk9DDkkETQysKQw3X4KcuWOEVY' 
-        }
-    ]
+  const events = [
+    { icon: '💻', title: '해커톤', desc: '주어진 주제를 팀 협업으로 해결하는 창의적 문제 해결 대회. 기획부터 발표까지 전 과정을 지원합니다.' },
+    { icon: '🏕️', title: 'SW 캠프', desc: '1일~수박 형태의 몰입형 SW 교육 캠프. 학교·기관 수요에 맞춘 다양한 테마로 기획합니다.' },
+    { icon: '💡', title: '아이디어톤', desc: '기술이 아닌 아이디어로 겨루는 창의 발상 대회. 초등부터 고등까지 참여 가능합니다.' },
+    { icon: '🏆', title: '코딩 대회', desc: '알고리즘, 블록코딩, 앱 제작 등 다양한 형태의 코딩 경진대회를 기획하고 운영합니다.' },
+  ]
 
-    return (
-        <div className="bg-white min-h-screen">
-            {/* Hero Section */}
-            <section className="relative pt-32 pb-24 overflow-hidden bg-white node-pattern border-b border-slate-50">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-wemake-green/5 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-10 right-20 w-96 h-96 bg-wemake-yellow/5 rounded-full blur-3xl"></div>
-                
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    <div className="lg:col-span-7 flex flex-col space-y-6">
-                        <span className="inline-block py-1.5 px-4 rounded-full bg-navy/5 text-navy font-bold text-[11px] mb-2 border border-navy/10 w-fit">
-                            SPECIALIZED EVENT & CAMP
-                        </span>
-                        <h1 className="text-3xl md:text-[50px] font-extrabold text-navy mb-4 leading-[1.2] tracking-tight">
-                            해커톤 / SW캠프 기획&운영: <br/>
-                            <span className="text-gradient">몰입과 혁신의 무대를 만듭니다</span>
-                        </h1>
-                        <p className="text-base md:text-[17px] text-slate-500 font-medium leading-relaxed max-w-xl">
-                            창의적인 아이디어가 발산되는 해커톤부터 압축적 성장을 이끄는 SW 캠프까지, 
-                            교육과 재미를 동시에 잡는 차별화된 행사 기획을 통해 참가자들의 잠재력을 깨웁니다.
-                        </p>
-                        <div className="flex flex-wrap gap-4 pt-4">
-                            <button className="btn-gradient px-8 py-4 shadow-lg shadow-wemake-green/20">
-                                캠프/행사 문의하기
-                            </button>
-                            <button className="bg-white border-2 border-navy text-navy px-8 py-4 rounded-full font-bold hover:bg-navy hover:text-white transition-all duration-300">
-                                포트폴리오 보기
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="lg:col-span-5 relative group">
-                        <div className="glass-card rounded-[2.5rem] overflow-hidden p-3 border-slate-50 shadow-2xl">
-                            <img src={hackathonHero} alt="Student Hackathon Collaboration" className="rounded-[2rem] w-full h-[380px] object-cover" />
-                        </div>
-                        {/* Floating Stats */}
-                        <div className="absolute -bottom-6 -left-6 glass-card rounded-3xl p-6 flex items-center gap-4 border-slate-100 shadow-xl z-20">
-                            <div className="w-12 h-12 rounded-2xl bg-navy flex items-center justify-center text-white">
-                                <span className="material-symbols-outlined">stars</span>
-                            </div>
-                            <div>
-                                <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Experience</p>
-                                <p className="text-xl font-bold text-navy italic">150+ Camps</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Process Section */}
-            <section className="py-24 bg-slate-50/50">
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-5xl font-extrabold text-navy italic tracking-tight">전문적인 관리 프로세스</h2>
-                        <p className="text-slate-500 font-medium italic mt-4">단순한 행사 운영을 넘어 최적의 학습 성과를 도출합니다.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        {processes.map((p, index) => (
-                            <div key={index} className="glass-card rounded-[2.5rem] p-8 flex flex-col items-center text-center bg-white border-slate-100 hover:shadow-xl transition-all duration-500 group">
-                                <div className="w-16 h-16 rounded-2xl bg-navy/5 flex items-center justify-center mb-6 text-navy group-hover:bg-navy group-hover:text-white transition-colors duration-500">
-                                    <span className="material-symbols-outlined text-3xl">{p.icon}</span>
-                                </div>
-                                <span className="px-4 py-1.5 bg-wemake-green/10 text-wemake-green text-[10px] font-black rounded-full uppercase mb-4">{p.step}</span>
-                                <h3 className="text-xl font-bold text-navy mb-3">{p.title}</h3>
-                                <p className="text-sm text-slate-500 font-medium leading-relaxed">{p.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Portfolio Section */}
-            <section className="py-24 bg-white">
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                        <div>
-                            <h2 className="text-3xl md:text-5xl font-extrabold text-navy italic tracking-tight">주요 포트폴리오</h2>
-                            <p className="text-slate-500 font-medium italic mt-4 max-w-xl">해커톤과 몰입형 캠프를 통해 검증된 WEMAKE의 운영 노하우입니다.</p>
-                        </div>
-                        <button className="text-navy font-bold flex items-center gap-2 group">
-                            전체 보기
-                            <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
-                        </button>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {portfolio.map((item, index) => (
-                            <div key={index} className={`group relative overflow-hidden rounded-[2.5rem] bg-navy ${item.size === 'lg' ? 'lg:col-span-2' : ''} h-[400px] shadow-2xl`}>
-                                <img src={item.img} alt={item.title} className="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-40" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent p-10 flex flex-col justify-end">
-                                    <span className="px-4 py-1.5 bg-white/20 backdrop-blur-md text-white text-[10px] font-black rounded-full w-fit mb-4 border border-white/30 uppercase tracking-widest">{item.tag}</span>
-                                    <h3 className={`text-navy-50 font-bold mb-2 italic ${item.size === 'lg' ? 'text-3xl' : 'text-2xl'}`}>{item.title}</h3>
-                                    <p className="text-white/70 font-medium">{item.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+  return (
+    <div className="bg-white min-h-screen">
+      {/* Hero */}
+      <section className="relative pt-32 pb-24 overflow-hidden bg-[#0A1628]">
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `linear-gradient(rgba(0,229,255,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.3) 1px,transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}/>
+        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-[#F2C12E]/15 rounded-full blur-[120px] pointer-events-none -translate-y-1/2"/>
+        <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-[#89B84C]/15 rounded-full blur-[120px] pointer-events-none -translate-y-1/2"/>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10 text-center">
+          <span className="inline-block py-1.5 px-4 rounded-full border border-[#F2C12E]/40 text-[#F2C12E] font-bold text-xs mb-6 bg-[#F2C12E]/10">
+            해커톤 / 행사
+          </span>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            해커톤 & SW캠프
+            <br />
+            <span className="bg-gradient-to-r from-[#29B6F6] via-[#43E97B] to-[#F9C12E] bg-clip-text text-transparent">
+              몰입과 혁신의 무대를 만듭니다
+            </span>
+          </h1>
+          <p className="text-lg text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+            창의적 아이디어가 발산되는 해커톤부터 몰입형 SW 캠프까지.<br />
+            기획, 모집, 현장 운영, 결과 정리까지 전 과정을 함께합니다.
+          </p>
+          <a
+            href="mailto:arkim12345@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#89B84C] to-[#F2C12E] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+          >
+            행사 문의하기
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 3l7 6-7 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </a>
         </div>
-    )
+      </section>
+
+      {/* 행사 종류 */}
+      <section className="py-24 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-4 border border-navy/10">Event Types</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4">운영 가능한 행사 유형</h2>
+            <p className="text-slate-500 font-medium">학교·기관의 목적과 대상에 맞춰 다양한 형태로 기획합니다.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {events.map((e, i) => (
+              <div key={i} className="p-8 rounded-3xl border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white flex gap-6">
+                <div className="text-4xl shrink-0">{e.icon}</div>
+                <div>
+                  <h3 className="text-xl font-bold text-navy mb-3">{e.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium">{e.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 운영 프로세스 */}
+      <section className="py-24 bg-slate-50/50">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-4 border border-navy/10">Process</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4">운영 프로세스</h2>
+            <p className="text-slate-500 font-medium">기획부터 마무리까지 체계적으로 지원합니다.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {processes.map((p, i) => (
+              <div key={i} className="bg-white p-8 rounded-3xl border border-slate-100 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <div className="text-4xl mb-4">{p.icon}</div>
+                <div className="inline-block px-3 py-1 bg-[#89B84C]/10 text-[#89B84C] text-xs font-bold rounded-full mb-4">STEP {p.step}</div>
+                <h3 className="text-lg font-bold text-navy mb-3">{p.title}</h3>
+                <p className="text-slate-500 text-sm font-medium leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-[#0A1628]">
+        <div className="max-w-[800px] mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-4">행사 기획 & 운영 문의</h2>
+          <p className="text-white/50 font-medium mb-8 leading-relaxed">
+            행사 규모, 대상, 예산 등을 알려주시면<br />
+            최적의 프로그램을 제안해드립니다.
+          </p>
+          <a
+            href="mailto:arkim12345@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#89B84C] to-[#F2C12E] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+          >
+            행사 문의하기
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 3l7 6-7 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </a>
+        </div>
+      </section>
+    </div>
+  )
 }
 
 export default HackathonEvent
