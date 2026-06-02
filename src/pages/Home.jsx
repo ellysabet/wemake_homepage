@@ -9,36 +9,17 @@ const Hero = () => {
     if (!cv) return
     const ctx = cv.getContext('2d')
 
-    // 상태 변수 (resize 후에도 유지)
-    let visNodes = [], visNodeSet = new Set()
-    let lineProgress = []
-    let phase = 0
-    let nodeTimer = 0, badgeTimer = 0
-    let badgeText = '', badgeIdx = 0
-    const BADGE = 'CODING & EDUTECH COOPERATIVE'
-    let titleAlpha = 0, gradP = 0, crossfade = 0
-    let subAlpha = 0, tagsAlpha = 0
-    let lastT = null
-    let rafId = null
-
-    const logoImg = new Image()
-    logoImg.crossOrigin = 'anonymous'
-    logoImg.src = 'https://raw.githubusercontent.com/ellysabet/wemake_homepage/main/src/assets/logo.png'
-
-    // ── 캔버스 크기를 부모에 맞게 설정 ──────────────────────────────────────
     const setSize = () => {
-      const parent = cv.parentElement
-      cv.width  = parent.offsetWidth
-      cv.height = parent.offsetHeight
+      cv.width  = cv.parentElement.offsetWidth
+      cv.height = cv.parentElement.offsetHeight
     }
+    setSize()
 
-    // ── 좌표 헬퍼 (800×500 기준 → 실제 px) ──────────────────────────────────
-    const px = (v800) => v800 * (cv.width  / 800)
-    const py = (v500) => v500 * (cv.height / 500)
-    const W  = () => cv.width
-    const H  = () => cv.height
+    const W = () => cv.width
+    const H = () => cv.height
+    const px = (v) => v * (cv.width  / 800)
+    const py = (v) => v * (cv.height / 500)
 
-    // ── PCB 노드 / 라인 (800×500 기준) ───────────────────────────────────────
     const CYAN = '#00E5FF', YELLOW = '#F9C12E'
 
     const RAW_NODES = [
@@ -54,22 +35,59 @@ const Hero = () => {
 
     const RAW_LINES = [
       {pts:[{x:6,y:6},{x:60,y:6},{x:76,y:18},{x:390,y:18},{x:400,y:6},{x:610,y:6},{x:724,y:6},{x:794,y:6}], c:CYAN,   w:1.3, op:0.75},
-      {pts:[{x:6,y:6},{x:6,y:150},{x:18,y:162},{x:18,y:338},{x:6,y:350},{x:6,y:494}],                         c:CYAN,   w:1.3, op:0.75},
-      {pts:[{x:794,y:6},{x:794,y:150},{x:782,y:162},{x:782,y:338},{x:794,y:350},{x:794,y:494}],                c:CYAN,   w:1.3, op:0.70},
+      {pts:[{x:6,y:6},{x:6,y:150},{x:18,y:162},{x:18,y:338},{x:6,y:350},{x:6,y:494}],                        c:CYAN,   w:1.3, op:0.75},
+      {pts:[{x:794,y:6},{x:794,y:150},{x:782,y:162},{x:782,y:338},{x:794,y:350},{x:794,y:494}],               c:CYAN,   w:1.3, op:0.70},
       {pts:[{x:6,y:494},{x:60,y:494},{x:76,y:482},{x:390,y:482},{x:400,y:494},{x:610,y:494},{x:724,y:482},{x:794,y:494}], c:CYAN, w:1.3, op:0.75},
       {pts:[{x:18,y:18},{x:66,y:18},{x:82,y:30},{x:388,y:30},{x:400,y:20},{x:612,y:20},{x:718,y:30},{x:782,y:18}], c:YELLOW, w:1.0, op:0.60},
-      {pts:[{x:18,y:18},{x:18,y:156},{x:30,y:168},{x:30,y:332},{x:18,y:344},{x:18,y:482}],                     c:YELLOW, w:1.0, op:0.60},
-      {pts:[{x:782,y:18},{x:782,y:156},{x:770,y:168},{x:770,y:332},{x:782,y:344},{x:782,y:482}],               c:YELLOW, w:1.0, op:0.55},
+      {pts:[{x:18,y:18},{x:18,y:156},{x:30,y:168},{x:30,y:332},{x:18,y:344},{x:18,y:482}],                    c:YELLOW, w:1.0, op:0.60},
+      {pts:[{x:782,y:18},{x:782,y:156},{x:770,y:168},{x:770,y:332},{x:782,y:344},{x:782,y:482}],              c:YELLOW, w:1.0, op:0.55},
       {pts:[{x:18,y:482},{x:66,y:482},{x:82,y:470},{x:388,y:470},{x:400,y:480},{x:612,y:480},{x:718,y:470},{x:782,y:482}], c:YELLOW, w:1.0, op:0.60},
     ]
 
-    // ── 초기화 ───────────────────────────────────────────────────────────────
-    function init() {
-      setSize()
-      lineProgress = new Array(RAW_LINES.length).fill(0)
-    }
+    // ── 로고 이미지 ──────────────────────────────────────────────────────────
+    const logoImg = new Image()
+    logoImg.crossOrigin = 'anonymous'
+    logoImg.src = 'https://raw.githubusercontent.com/ellysabet/wemake_homepage/main/src/assets/logo.png'
 
-    // ── 그리기 함수들 ─────────────────────────────────────────────────────────
+    // ── 공통 치수 계산 ────────────────────────────────────────────────────────
+    const BADGEfs = () => Math.max(10, Math.round(W() * 0.013))
+    const BADGEh  = () => BADGEfs() * 2.2
+    const BADGEw  = () => Math.min(W() * 0.38, BADGEfs() * 26)
+    const BADGEy  = () => H() * 0.075                          // 배지 상단 y
+    const LOGOy   = () => BADGEy() + BADGEh() + H() * 0.02    // 로고 상단 y (배지 바로 아래)
+    const LOGOw   = () => {
+      const wFs = Math.round(Math.min(W() * 0.065, H() * 0.078))
+      return wFs * 8.0
+    }
+    const LOGOh   = () => logoImg.naturalWidth
+      ? LOGOw() * (logoImg.naturalHeight / logoImg.naturalWidth)
+      : LOGOw() * 0.56
+    const WEMAKEfs= () => Math.round(Math.min(W() * 0.065, H() * 0.078))
+    const WEMAKEy = () => LOGOy() + LOGOh() + WEMAKEfs() * 0.75
+    // 타이틀(We Make / the Future) — 로고 영역 중앙
+    const TITLEcy = () => LOGOy() + LOGOh() * 0.48
+    const SUBFs   = () => Math.max(13, Math.round(W() * 0.017))
+    const SUBy    = () => WEMAKEy() + WEMAKEfs() * 0.5 + SUBFs() * 1.2
+    // 버튼: 하단 안쪽 PCB 라인(y=470/500=94%) 위쪽
+    const BTNbottom = () => (1 - 470/500) * H() + H() * 0.015  // ≈ 6% + 여유
+
+    // ── 상태 변수 ─────────────────────────────────────────────────────────────
+    let visNodes = [], visNodeSet = new Set()
+    let lineProgress = new Array(RAW_LINES.length).fill(0)
+    // phase: 0=노드, 1=선, 2=배지타이핑, 3=타이틀흰색, 4=그라데이션, 5=페이드아웃타이틀+페이드인로고, 6=서브타이핑, 7=태그등장
+    let phase = 0
+    let nodeTimer = 0, badgeTimer = 0, subTimer = 0
+    let badgeText = '', badgeIdx = 0
+    const BADGE = 'CODING & EDUTECH COOPERATIVE'
+    let titleAlpha = 0, gradP = 0
+    let titleOut = 0
+    let logoIn   = 0
+    let subText  = '', subIdx = 0
+    const SUBTEXT = '함께 만들고, 함께 배우며, 함께 미래를 설계합니다.'
+    let tagsAlpha = 0
+    let lastT = null, rafId = null
+
+    // ── 배경 ─────────────────────────────────────────────────────────────────
     function drawBg() {
       ctx.fillStyle = '#0A1628'
       ctx.fillRect(0, 0, W(), H())
@@ -80,6 +98,7 @@ const Hero = () => {
       ctx.fillRect(0, 0, W(), H())
     }
 
+    // ── PCB 노드 ──────────────────────────────────────────────────────────────
     function drawNode(n) {
       ctx.save()
       ctx.shadowBlur = 10; ctx.shadowColor = n.c
@@ -89,19 +108,20 @@ const Hero = () => {
       ctx.restore()
     }
 
+    // ── PCB 라인 ──────────────────────────────────────────────────────────────
     function drawLine(line, progress) {
       if (progress <= 0) return
       const pts = line.pts
       let segs = [], total = 0
       for (let i = 1; i < pts.length; i++) {
-        const d = Math.hypot(pts[i].x - pts[i-1].x, pts[i].y - pts[i-1].y)
+        const d = Math.hypot(pts[i].x-pts[i-1].x, pts[i].y-pts[i-1].y)
         segs.push(d); total += d
       }
       const drawn = total * progress
       let acc = 0
       ctx.save()
       ctx.strokeStyle = line.c
-      ctx.lineWidth = Math.max(0.8, line.w * (W()/800))
+      ctx.lineWidth = Math.max(0.8, line.w*(W()/800))
       ctx.globalAlpha = line.op
       ctx.shadowBlur = 5; ctx.shadowColor = line.c
       ctx.beginPath()
@@ -111,25 +131,19 @@ const Hero = () => {
           ctx.lineTo(px(pts[i].x), py(pts[i].y))
           acc += segs[i-1]
         } else {
-          const t = (drawn - acc) / segs[i-1]
-          ctx.lineTo(
-            px(pts[i-1].x + (pts[i].x - pts[i-1].x) * t),
-            py(pts[i-1].y + (pts[i].y - pts[i-1].y) * t)
-          )
+          const t = (drawn-acc)/segs[i-1]
+          ctx.lineTo(px(pts[i-1].x+(pts[i].x-pts[i-1].x)*t), py(pts[i-1].y+(pts[i].y-pts[i-1].y)*t))
           break
         }
       }
       ctx.stroke(); ctx.restore()
     }
 
+    // ── 배지 ─────────────────────────────────────────────────────────────────
     function drawBadge(text, alpha) {
       if (!text || alpha <= 0) return
-      // 화면 너비에 맞게 배지 크기 동적 계산
-      const fs   = Math.max(11, Math.round(W() * 0.016))
-      const bh   = fs * 2.4
-      const bw   = Math.min(W() * 0.45, fs * 28)
-      const bx   = W()/2 - bw/2
-      const by   = H() * 0.09
+      const fs = BADGEfs(), bh = BADGEh(), bw = BADGEw()
+      const bx = W()/2 - bw/2, by = BADGEy()
       ctx.save()
       ctx.globalAlpha = alpha
       ctx.strokeStyle = '#1DE9B6'; ctx.lineWidth = 1
@@ -137,18 +151,19 @@ const Hero = () => {
       ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, bh/2)
       ctx.fill(); ctx.stroke()
       ctx.shadowBlur = 6; ctx.shadowColor = '#1DE9B6'
-      ctx.beginPath(); ctx.arc(bx + bh*0.55, by + bh/2, bh*0.14, 0, Math.PI*2)
+      ctx.beginPath(); ctx.arc(bx+bh*0.55, by+bh/2, bh*0.14, 0, Math.PI*2)
       ctx.fillStyle = '#1DE9B6'; ctx.fill()
       ctx.shadowBlur = 0
       ctx.font = `bold ${fs}px sans-serif`
       ctx.fillStyle = '#1DE9B6'
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
-      ctx.fillText(text, bx + bw/2 + bh*0.3, by + bh/2)
+      ctx.fillText(text, bx+bw/2+bh*0.28, by+bh/2)
       ctx.restore()
     }
 
+    // ── 그라데이션 ────────────────────────────────────────────────────────────
     function makeGrad(y) {
-      const g = ctx.createLinearGradient(W()/2 - W()*0.34, y, W()/2 + W()*0.34, y)
+      const g = ctx.createLinearGradient(W()/2-W()*0.34, y, W()/2+W()*0.34, y)
       g.addColorStop(0,    '#1565C0')
       g.addColorStop(0.25, '#29B6F6')
       g.addColorStop(0.5,  '#43E97B')
@@ -157,13 +172,14 @@ const Hero = () => {
       return g
     }
 
+    // ── 타이틀 (We Make / the Future) ────────────────────────────────────────
     function drawTitle(alpha, gp) {
       if (alpha <= 0) return
-      const fs   = Math.round(Math.min(W() * 0.095, H() * 0.148))
-      const lineH = fs * 1.18
-      const cy   = H() * 0.50
-      const y1   = cy - lineH * 0.48
-      const y2   = cy + lineH * 0.72
+      const fs   = Math.round(Math.min(W()*0.072, H()*0.10))
+      const lineH = fs * 1.3
+      const startY = BADGEy() + BADGEh() + H() * 0.12
+      const y1   = startY
+      const y2   = startY + lineH * 1.2
       ctx.save()
       ctx.font = `900 ${fs}px sans-serif`
       ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'
@@ -175,146 +191,158 @@ const Hero = () => {
       ctx.restore()
     }
 
-    // 로고 크기 / 위치 계산 (공통)
-    function getLogoMetrics() {
-      const logoW  = Math.min(W() * 0.38, H() * 0.52)   // 로고 너비 줄임
-      const logoH  = logoImg.naturalWidth
-        ? logoW * (logoImg.naturalHeight / logoImg.naturalWidth)
-        : logoW * 0.56
-      const logoX  = W()/2 - logoW/2
-      const logoY  = H() * 0.14
-      const wemakeFs = Math.round(logoW * 0.22)           // WEMAKE = 로고 너비의 22% → 글자 너비로 약 78%
-      const subFs  = Math.max(13, Math.round(W() * 0.018))
-      const wemakeY = logoY + logoH + wemakeFs * 0.9
-      const subY   = wemakeY + wemakeFs * 0.6 + subFs * 1.1
-      const tagY   = subY + subFs * 1.8
-      return { logoW, logoH, logoX, logoY, wemakeFs, wemakeY, subFs, subY, tagY }
-    }
-
+    // ── 로고 + WEMAKE 텍스트 ──────────────────────────────────────────────────
     function drawLogo(alpha) {
       if (alpha <= 0 || !logoImg.complete || !logoImg.naturalWidth) return
-      const { logoW, logoH, logoX, logoY, wemakeFs, wemakeY } = getLogoMetrics()
+      const lw = LOGOw(), lh = LOGOh()
+      const lx = W()/2 - lw/2, ly = LOGOy()
+      const wFs = WEMAKEfs(), wy = WEMAKEy()
       ctx.save()
       ctx.globalAlpha = alpha
-      ctx.drawImage(logoImg, logoX, logoY, logoW, logoH)
-      ctx.font = `900 ${wemakeFs}px sans-serif`
+      ctx.drawImage(logoImg, lx, ly, lw, lh)
+      ctx.font = `900 ${wFs}px sans-serif`
       ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'
       ctx.fillStyle = 'white'
-      ctx.shadowBlur = 10; ctx.shadowColor = 'rgba(255,255,255,0.2)'
-      ctx.fillText('WEMAKE', W()/2, wemakeY)
+      ctx.shadowBlur = 8; ctx.shadowColor = 'rgba(255,255,255,0.2)'
+      ctx.fillText('WEMAKE', W()/2, wy)
       ctx.restore()
     }
 
-    function drawSub(alpha) {
-      if (alpha <= 0) return
-      const { subFs, subY } = getLogoMetrics()
+    // ── 서브텍스트 타이핑 ─────────────────────────────────────────────────────
+    function drawSub(text, alpha) {
+      if (!text || alpha <= 0) return
+      const fs = SUBFs(), sy = SUBy()
       ctx.save()
       ctx.globalAlpha = alpha * 0.65
       ctx.fillStyle = 'white'
-      ctx.font = `400 ${subFs}px sans-serif`
+      ctx.font = `400 ${fs}px sans-serif`
       ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'
-      ctx.fillText('함께 만들고, 함께 배우며, 함께 미래를 설계합니다.', W()/2, subY)
+      ctx.fillText(text, W()/2, sy)
+      // 커서 깜빡임
+      if (subIdx < SUBTEXT.length) {
+        const tw = ctx.measureText(text).width
+        ctx.globalAlpha = alpha * 0.8
+        ctx.fillRect(W()/2 + tw/2 + 2, sy - fs*0.85, 2, fs*0.9)
+      }
       ctx.restore()
     }
 
+    // ── 태그 ──────────────────────────────────────────────────────────────────
     function drawTags(alpha) {
       if (alpha <= 0) return
-      const { tagY, subFs } = getLogoMetrics()
       const tags = ['AI','SW','IoT','DATA','EDUTECH','Physical']
+      const subFs = SUBFs()
       const tagFs = Math.max(10, Math.round(subFs * 0.82))
       const tw = tagFs * 5.2, th = tagFs * 2.0, gap = tagFs * 0.7
       const total = tags.length * (tw + gap) - gap
       let tx = W()/2 - total/2
-      // 하단 PCB 라인 위로 clamp
-      const maxTagY = H() * 0.865
-      const finalY  = Math.min(tagY, maxTagY)
+      // 서브텍스트 아래
+      const ty = SUBy() + subFs * 1.6
       ctx.save()
       ctx.globalAlpha = alpha
       tags.forEach(tag => {
         ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1
         ctx.fillStyle   = 'rgba(255,255,255,0.07)'
-        ctx.beginPath(); ctx.roundRect(tx, finalY, tw, th, th/2)
+        ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, th/2)
         ctx.fill(); ctx.stroke()
         ctx.fillStyle = 'rgba(255,255,255,0.78)'
         ctx.font = `bold ${tagFs}px sans-serif`
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
-        ctx.fillText(tag, tx + tw/2, finalY + th/2)
+        ctx.fillText(tag, tx+tw/2, ty+th/2)
         tx += tw + gap
       })
       ctx.restore()
     }
-
-    // ── 메인 루프 ─────────────────────────────────────────────────────────────
     function frame(ts) {
       if (!lastT) lastT = ts
-      const dt = Math.min(ts - lastT, 50)
+      const dt = Math.min(ts-lastT, 50)
       lastT = ts
 
       drawBg()
       visNodes.forEach(i => drawNode(RAW_NODES[i]))
-      RAW_LINES.forEach((l, i) => drawLine(l, lineProgress[i]))
+      RAW_LINES.forEach((l,i) => drawLine(l, lineProgress[i]))
 
       if (phase === 0) {
+        // 노드 랜덤 점등
         nodeTimer += dt
-        if (nodeTimer > 80) {
+        if (nodeTimer > 75) {
           nodeTimer = 0
-          const rem = RAW_NODES.map((_,i)=>i).filter(i => !visNodeSet.has(i))
+          const rem = RAW_NODES.map((_,i)=>i).filter(i=>!visNodeSet.has(i))
           if (rem.length > 0) {
             const pick = rem[Math.floor(Math.random()*rem.length)]
             visNodes.push(pick); visNodeSet.add(pick)
           } else { phase = 1 }
         }
+
       } else if (phase === 1) {
+        // PCB 라인 그려짐
         let done = true
-        lineProgress = lineProgress.map((p, i) => {
+        lineProgress = lineProgress.map((p,i) => {
           const sp = i < 4 ? 0.007 : 0.006
-          const np = Math.min(1, p + sp*(dt/16))
+          const np = Math.min(1, p+sp*(dt/16))
           if (np < 1) done = false
           return np
         })
         if (done) phase = 2
+
       } else if (phase === 2) {
+        // 배지 타이핑
+        drawBadge(badgeText, 1)
         badgeTimer += dt
-        if (badgeTimer > 85) {
+        if (badgeTimer > 80) {
           badgeTimer = 0
           if (badgeIdx < BADGE.length) { badgeIdx++; badgeText = BADGE.slice(0,badgeIdx) }
           else { phase = 3 }
         }
-        drawBadge(badgeText, 1)
+
       } else if (phase === 3) {
+        // 타이틀 흰색으로 천천히 등장
         drawBadge(BADGE, 1)
         titleAlpha = Math.min(1, titleAlpha + 0.012*(dt/16))
         drawTitle(titleAlpha, 0)
         if (titleAlpha >= 1) phase = 4
+
       } else if (phase === 4) {
+        // 그라데이션 천천히 입혀짐
         drawBadge(BADGE, 1)
         gradP = Math.min(1, gradP + 0.008*(dt/16))
         drawTitle(1, gradP)
         if (gradP >= 1) phase = 5
+
       } else if (phase === 5) {
+        // 타이틀 페이드아웃 & 로고 페이드인 (동시에, 천천히)
         drawBadge(BADGE, 1)
-        crossfade = Math.min(1, crossfade + 0.006*(dt/16))
-        drawTitle(1 - crossfade, 1)
-        drawLogo(crossfade)
-        if (crossfade >= 1) phase = 6
+        titleOut = Math.min(1, titleOut + 0.007*(dt/16))
+        logoIn   = Math.min(1, logoIn   + 0.007*(dt/16))
+        drawTitle(1-titleOut, 1)
+        drawLogo(logoIn)
+        if (titleOut >= 1 && logoIn >= 1) phase = 6
+
       } else if (phase === 6) {
-        drawBadge(BADGE, 1); drawLogo(1)
-        subAlpha = Math.min(1, subAlpha + 0.010*(dt/16))
-        drawSub(subAlpha)
-        if (subAlpha >= 1) phase = 7
-      } else {
-        drawBadge(BADGE, 1); drawLogo(1); drawSub(1)
-        tagsAlpha = Math.min(1, tagsAlpha + 0.012*(dt/16))
+        // 서브텍스트 타자 형식 등장
+        drawBadge(BADGE, 1)
+        drawLogo(1)
+        subTimer += dt
+        if (subTimer > 55) {
+          subTimer = 0
+          if (subIdx < SUBTEXT.length) { subIdx++; subText = SUBTEXT.slice(0,subIdx) }
+          else { phase = 7 }
+        }
+        drawSub(subText, 1)
+
+      } else if (phase === 7) {
+        // 태그 페이드인 등장
+        drawBadge(BADGE, 1)
+        drawLogo(1)
+        drawSub(SUBTEXT, 1)
+        tagsAlpha = Math.min(1, tagsAlpha + 0.015*(dt/16))
         drawTags(tagsAlpha)
       }
 
       rafId = requestAnimationFrame(frame)
     }
 
-    // ── resize 핸들러 ─────────────────────────────────────────────────────────
-    const onResize = () => { setSize() }
-
-    init()
+    const onResize = () => setSize()
     window.addEventListener('resize', onResize)
     rafId = requestAnimationFrame(frame)
 
@@ -327,16 +355,20 @@ const Hero = () => {
   return (
     <section style={{position:'relative', width:'100%', height:'100vh', minHeight:'560px', overflow:'hidden'}}>
       <canvas ref={canvasRef} style={{position:'absolute', inset:0, width:'100%', height:'100%', display:'block'}} />
-      {/* 버튼 — 하단 PCB 라인(y≈482~494/500) 위, bottom 1.5% */}
+      {/* 버튼 — 안쪽 PCB 라인(y=470/500) 위, bottom≈7% */}
       <div style={{
-        position:'absolute', bottom:'1.8%',
+        position:'absolute', bottom:'7%',
         left:'50%', transform:'translateX(-50%)',
         display:'flex', gap:'16px', zIndex:10, whiteSpace:'nowrap'
       }}>
-        <Link to="/edu/basic" className="bg-wemake-gradient text-white px-8 py-3 rounded-full font-bold shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 text-sm">
+        <Link to="/edu/basic"
+          style={{minWidth:'160px', textAlign:'center'}}
+          className="bg-wemake-gradient text-white px-8 py-3 rounded-full font-bold shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 text-sm">
           서비스 알아보기
         </Link>
-        <Link to="/about" className="border-2 border-white/30 text-white px-8 py-3 rounded-full font-bold hover:border-wemake-green hover:text-wemake-green transition-all duration-300 bg-white/5 text-sm">
+        <Link to="/about"
+          style={{minWidth:'160px', textAlign:'center'}}
+          className="border-2 border-white/30 text-white px-8 py-3 rounded-full font-bold hover:border-wemake-green hover:text-wemake-green transition-all duration-300 bg-white/5 text-sm">
           조합 소개
         </Link>
       </div>
