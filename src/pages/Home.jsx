@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 // ─── 1. HERO ────────────────────────────────────────────────────────────────
 const Hero = () => (
-  <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0D1B3E]">
+  <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0D1B3E] pt-20">
     {/* 회로 기판 느낌 배경 패턴 */}
     <div className="absolute inset-0 opacity-10"
       style={{
@@ -218,6 +218,8 @@ const CallToAction = () => (
       </p>
       <a
         href="mailto:arkim12345@gmail.com"
+        target="_blank"
+        rel="noopener noreferrer"
         className="inline-flex items-center gap-3 bg-wemake-gradient text-white px-12 py-5 rounded-full font-bold text-lg shadow-xl shadow-wemake-green/30 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
       >
         문의하기
