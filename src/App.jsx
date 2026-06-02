@@ -6,8 +6,8 @@ import AdvancedPhysicalEdu from './pages/AdvancedPhysicalEdu'
 import HighCreativeEdu from './pages/HighCreativeEdu'
 import InstructorTraining from './pages/InstructorTraining'
 import InstitutionEdu from './pages/InstitutionEdu'
+import SpecialEdu from './pages/SpecialEdu'
 import HackathonEvent from './pages/HackathonEvent'
-import EducationArchive from './pages/EducationArchive'
 import AboutUs from './pages/AboutUs'
 import ScrollToTop from './components/ScrollToTop'
 
@@ -23,8 +23,8 @@ function App() {
           <Route path="/edu/high-creative" element={<HighCreativeEdu />} />
           <Route path="/pro/instructor" element={<InstructorTraining />} />
           <Route path="/pro/institution" element={<InstitutionEdu />} />
+          <Route path="/special" element={<SpecialEdu />} />
           <Route path="/event/hackathon" element={<HackathonEvent />} />
-          <Route path="/archive" element={<EducationArchive />} />
           <Route path="/about" element={<AboutUs />} />
         </Routes>
       </Layout>
