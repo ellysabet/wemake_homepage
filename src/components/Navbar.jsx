@@ -20,8 +20,8 @@ const Navbar = () => {
       name: '전문가 과정',
       isDropdown: true,
       subItems: [
-        { name: '강사 양성 과정', to: '/pro/instructor' },
         { name: '교직원 연수 및 공공기관 수업', to: '/pro/institution' },
+        { name: '강사 양성 과정', to: '/pro/instructor' },
       ]
     },
     { name: '특수교육', to: '/special' },
