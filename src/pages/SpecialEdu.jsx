@@ -40,8 +40,9 @@ const SpecialEdu = () => {
           <span className="inline-block py-1.5 px-4 rounded-full border border-[#29B6F6]/40 text-[#29B6F6] font-bold text-xs mb-6 bg-[#29B6F6]/10">
             특수교육
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
-            교육의 소외가 없는<br />
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            교육의 소외가 없는
+            <br />
             <span className="bg-gradient-to-r from-[#29B6F6] via-[#43E97B] to-[#F9C12E] bg-clip-text text-transparent">
               UDL 기반 맞춤형 AI 수업
             </span>
