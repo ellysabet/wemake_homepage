@@ -197,8 +197,7 @@ const AboutUs = () => {
           <div className="flex justify-center">
             <div className="bg-slate-50 rounded-3xl border border-slate-100 px-16 py-10 text-center hover:shadow-lg transition-all duration-300">
               <div className="text-3xl mb-4">🏛️</div>
-              <h3 className="text-lg font-bold text-navy mb-2">경기 SW미래채움</h3>
-              <p className="text-slate-400 text-sm font-medium">경기도 SW 교육 거점 기관</p>
+              <h3 className="text-lg font-bold text-navy">경기 SW미래채움</h3>
             </div>
           </div>
         </div>
