@@ -1,144 +1,161 @@
-import logo from '../assets/logo.png'
+const AdvancedPhysicalEdu = () => {
+  const features = [
+    {
+      icon: '💻',
+      title: '텍스트 코딩',
+      desc: '파이썬 등 실제 프로그래밍 언어를 활용하여 알고리즘적 사고와 문제 해결 능력을 심화합니다.',
+      color: 'border-t-[#2E4A7B]',
+    },
+    {
+      icon: '📊',
+      title: '데이터 분석',
+      desc: '실생활 데이터를 수집하고 분석하여 의미 있는 결과를 도출하는 데이터 리터러시를 키웁니다.',
+      color: 'border-t-[#89B84C]',
+    },
+    {
+      icon: '🧠',
+      title: 'AI 활용',
+      desc: '인공지능 도구를 직접 활용하고 원리를 이해하는 실습 중심 AI 교육을 제공합니다.',
+      color: 'border-t-[#F2C12E]',
+    },
+    {
+      icon: '⚡',
+      title: '피지컬 컴퓨팅',
+      desc: '마이크로비트, 아두이노 등을 활용하여 코드가 현실 세계와 연결되는 피지컬 컴퓨팅을 경험합니다.',
+      color: 'border-t-[#2E4A7B]',
+    },
+    {
+      icon: '🤖',
+      title: '로봇 교구',
+      desc: '다양한 로봇 교구를 활용한 심화 프로젝트로 하드웨어와 소프트웨어 융합 역량을 강화합니다. (교구는 수업 협의 후 결정)',
+      color: 'border-t-[#89B84C]',
+    },
+  ]
 
-const BasicSWEducation = () => {
-    const curricula = [
-        {
-            title: '블록 코딩 기초',
-            desc: '엔트리와 스크래치를 활용하여 프로그래밍의 기본 개념을 쉽고 재미있게 학습합니다.',
-            icon: 'extension',
-            color: 'bg-navy/5 text-navy',
-        },
-        {
-            title: '언플러그드 활동',
-            desc: '컴퓨터 없이 진행되는 놀이와 게임을 통해 컴퓨팅 사고력의 원리를 몸으로 체득합니다.',
-            icon: 'power_off',
-            color: 'bg-wemake-green/10 text-wemake-green',
-        },
-        {
-            title: '로봇 코딩',
-            desc: '오조봇, 햄스터 등 교육용 로봇을 직접 제어하며 하드웨어와 소프트웨어의 융합을 이해합니다.',
-            icon: 'smart_toy',
-            color: 'bg-wemake-yellow/10 text-wemake-yellow',
-        },
-        {
-            title: '스크래치 프로젝트',
-            desc: '나만의 애니메이션과 게임을 직접 기획하고 제작하는 창의적인 프로젝트를 수행합니다.',
-            icon: 'integration_instructions',
-            color: 'bg-slate-100 text-slate-600',
-        }
-    ]
+  const process = [
+    { step: '01', title: '문제 발견', desc: '실생활에서 해결할 문제를 스스로 찾고 정의합니다.' },
+    { step: '02', title: '설계 & 코딩', desc: '텍스트 코딩과 하드웨어를 활용하여 솔루션을 설계하고 구현합니다.' },
+    { step: '03', title: '테스트 & 개선', desc: '결과물을 테스트하고 피드백을 반영해 지속적으로 개선합니다.' },
+    { step: '04', title: '발표 & 공유', desc: '완성된 프로젝트를 발표하고 동료 피드백을 통해 성장합니다.' },
+  ]
 
-    return (
-        <div className="bg-white min-h-screen">
-            {/* Hero Section */}
-            <header className="relative pt-32 pb-24 overflow-hidden bg-white">
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-wemake-green rounded-full blur-[100px]"></div>
-                    <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-navy rounded-full blur-[100px]"></div>
-                </div>
-                
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10 text-center">
-                    <span className="inline-block py-1.5 px-4 rounded-full bg-navy/5 text-navy font-bold text-xs mb-6">초/중등 과정</span>
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-navy mb-6 leading-tight">
-                        초/중등 기본 SW교육:<br/>
-                        <span className="text-gradient">코딩의 즐거움을 배우다</span>
-                    </h1>
-                    <p className="text-lg text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
-                        아이들의 상상력을 현실로 만드는 첫 걸음. <br className="hidden md:block" />
-                        재미있는 게임과 실습을 통해 자연스럽게 논리적 사고력과 문제 해결 능력을 키웁니다.
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button className="btn-gradient px-10 py-4 shadow-lg shadow-wemake-green/20">
-                            수강 신청하기
-                        </button>
-                        <button className="bg-white border-2 border-navy text-navy px-8 py-4 rounded-full font-bold hover:bg-navy hover:text-white transition-all duration-300 flex items-center gap-2">
-                            <span className="material-symbols-outlined text-xl">download</span>
-                            커리큘럼 다운로드
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            {/* Philosophy Section (Timeline UI) */}
-            <section className="py-24 bg-slate-50/50">
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4 italic">WEMAKE 교육 철학</h2>
-                        <p className="text-slate-500 font-medium italic">"이론은 10분 이내, 실습은 80분 이상!" 체험 중심의 몰입형 교육</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-                        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 -z-10 hidden md:block"></div>
-                        
-                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center">
-                            <div className="w-12 h-12 rounded-full bg-navy text-white flex items-center justify-center mx-auto mb-6 font-bold text-xl">1</div>
-                            <h3 className="text-xl font-bold text-navy mb-3">언플러그드</h3>
-                            <p className="text-sm text-slate-500 font-medium">컴퓨터 없이 원리를 <br/>몸으로 직접 체험</p>
-                        </div>
-                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center scale-110 relative z-10 border-wemake-green/30">
-                            <div className="w-12 h-12 rounded-full bg-wemake-green text-white flex items-center justify-center mx-auto mb-6 font-bold text-xl">2</div>
-                            <h3 className="text-xl font-bold text-navy mb-3">블록 코딩</h3>
-                            <p className="text-sm text-slate-500 font-medium">직관적인 블록으로 <br/>논리적 사고력 훈련</p>
-                        </div>
-                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center">
-                            <div className="w-12 h-12 rounded-full bg-wemake-yellow text-white flex items-center justify-center mx-auto mb-6 font-bold text-xl">3</div>
-                            <h3 className="text-xl font-bold text-navy mb-3">피지컬 컴퓨팅</h3>
-                            <p className="text-sm text-slate-500 font-medium">로봇 등 하드웨어를 <br/>직접 제어하는 성취감</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Course Grid Section */}
-            <section className="py-24">
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4 italic">핵심 커리큘럼</h2>
-                        <p className="text-slate-500 font-medium tracking-wide">단계별 맞춤 학습으로 탄탄한 기초를 다집니다.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {curricula.map((item, index) => (
-                            <div key={index} className="glass-card rounded-3xl p-8 hover:-translate-y-2 transition-all duration-300 border border-slate-100 flex flex-col h-full">
-                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${item.color}`}>
-                                    <span className="material-symbols-outlined text-2xl font-filled">{item.icon}</span>
-                                </div>
-                                <h3 className="text-xl font-bold text-navy mb-3">{item.title}</h3>
-                                <p className="text-sm text-slate-500 font-medium flex-grow">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Classroom Highlights */}
-            <section className="py-24 bg-slate-50/30">
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4 flex items-center justify-center gap-3 italic">
-                            생생한 클래스룸 <span className="text-gradient font-black tracking-widest">&lt;/&gt;</span>
-                        </h2>
-                        <p className="text-slate-500 font-medium">아이들의 열정과 웃음이 가득한 교육 현장입니다.</p>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
-                        <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden group relative">
-                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIRKpp8vq2psiSXSaKCCQ-5Pltcwf8vlyQbHmtHUCWuTy0qBm17M66ENeQmLnDq-sdOjWIrkpUhMnY1hHKyR6UTDjbo9df2OPlGyKoCOv1LR28G5U4bVyOOqg6Xry9KuiR4wpCryZKbz9TJyyFKi8buIobWNhBvfY5-oC_k6slJjj5tatwhdMDAbiAcn90fXUHYBVvofQKS_6haXPsXR8d9SFLintuz1jiJU5haBIpelyY0tPsfI6bu8CTZP1Dpq2QyHnzYJugJV8" alt="Classroom" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                            <div className="absolute inset-0 bg-navy/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
-                                <p className="text-white font-bold text-xl">함께 협력하며 문제를 해결합니다.</p>
-                            </div>
-                        </div>
-                        <div className="rounded-3xl overflow-hidden group">
-                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb40yn2aNZ_gvrEjPd87Kbh3QW2kfCLwzAenaPC2a94kXbzhooYYktQtZNO6QRf_QIrk9WJ3xl-nYfVL-FjmCc2HGS9jdSlUK8QiTjzCRVfoHMKqcUCFsdzFpWxbAMtjKDNqZj1jE7e8sSd9anCRg8AHL-2DoeIeaEIemzT1ou2d9lAe5jSrb5TQIQ_LarV7DxAFQvImRL_9gmuSQR7qPo5afsRFLPKwnUnEiRB19ImC5ffHFXQjGvKSOfKHbcWXD8Qv2lkTt8xJA" alt="Robot" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                        </div>
-                        <div className="rounded-3xl overflow-hidden group">
-                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQRolqCjuVtrFx34kvgfXPvWRRcIZKOB66xqQuiAdg5XbpVK-GwYMSV6AFBAYeP3RijMs1w5AiOwf0n0b1d85Upq1GkQeq_Yhfgjy0y0Hjq-3o4dukp5zb6t4ZMu0GFJIt_TQFyh4ZajBGqXjuEqbWJfAvICipcQ472M3NP3IpbSZsg8P8shg27YQt5Sr-v5txQ94N2CiHJNN10dBu3GP3Mf_-wo2QZxgUBNo0q-GGqYvAldoj3BIkX-IY4VCdiRSwTT_JSriCgJk" alt="Teacher" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                        </div>
-                    </div>
-                </div>
-            </section>
+  return (
+    <div className="bg-white min-h-screen">
+      {/* Hero */}
+      <section className="relative pt-32 pb-24 overflow-hidden bg-[#0A1628]">
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `linear-gradient(rgba(0,229,255,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.3) 1px,transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}/>
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-[#F2C12E]/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2"/>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10 text-center">
+          <span className="inline-block py-1.5 px-4 rounded-full border border-[#F2C12E]/40 text-[#F2C12E] font-bold text-xs mb-6 bg-[#F2C12E]/10">
+            초등 고학년 ~ 중학교
+          </span>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            초/중등 심화 SW&Physical 교육
+            <br />
+            <span className="bg-gradient-to-r from-[#29B6F6] via-[#43E97B] to-[#F9C12E] bg-clip-text text-transparent">
+              기술로 세상을 만들다
+            </span>
+          </h1>
+          <p className="text-lg text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+            블록 코딩을 넘어 텍스트 코딩, 데이터 분석, AI, 피지컬 컴퓨팅까지.<br />
+            실제 문제를 기술로 해결하는 프로젝트 중심 심화 교육입니다.
+          </p>
+          <a
+            href="mailto:arkim12345@gmail.com"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#89B84C] to-[#F2C12E] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+          >
+            수업 문의하기
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 3l7 6-7 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </a>
         </div>
-    )
+      </section>
+
+      {/* 주요 교육 내용 */}
+      <section className="py-24 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-4 border border-navy/10">What We Teach</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4">주요 교육 내용</h2>
+            <p className="text-slate-500 font-medium">학생의 수준과 학교 환경에 맞춰 유연하게 구성합니다.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((f, i) => (
+              <div key={i} className={`p-8 rounded-3xl border border-slate-100 border-t-4 ${f.color} hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white`}>
+                <div className="text-4xl mb-5">{f.icon}</div>
+                <h3 className="text-xl font-bold text-navy mb-3">{f.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed font-medium">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 프로젝트 프로세스 */}
+      <section className="py-24 bg-slate-50/50">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-4 border border-navy/10">Project Process</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4">프로젝트 중심 수업 방식</h2>
+            <p className="text-slate-500 font-medium">단계별로 직접 만들고 발표하며 진짜 실력을 키웁니다.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {process.map((p, i) => (
+              <div key={i} className="relative">
+                {i < process.length - 1 && (
+                  <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-slate-100 z-0 -translate-x-1/2"/>
+                )}
+                <div className="bg-white p-8 rounded-3xl border border-slate-100 hover:shadow-lg transition-all duration-300 relative z-10 text-center">
+                  <div className="w-14 h-14 rounded-full bg-[#2E4A7B] text-white flex items-center justify-center mx-auto mb-5 font-bold text-lg">{p.step}</div>
+                  <h3 className="text-lg font-bold text-navy mb-3">{p.title}</h3>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed">{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 특징 배너 */}
+      <section className="py-20 bg-[#0A1628]">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {[
+              { icon: '🎯', title: '실습 70% 이상', desc: '핸즈온 중심 수업으로 주입식 교육 탈피' },
+              { icon: '🤝', title: '협업 기반 교육', desc: '수업 준비 부담을 덜어주는 맞춤형 커리큘럼 설계' },
+              { icon: '🚀', title: '최신 기술 반영', desc: '학생별 수준을 고려한 개별화 및 창의 융합 수업' },
+            ].map((item, i) => (
+              <div key={i} className="text-white">
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                <p className="text-white/50 text-sm font-medium leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-[800px] mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-navy mb-4">수업 의뢰 및 문의</h2>
+          <p className="text-slate-500 font-medium mb-8 leading-relaxed">
+            학교, 기관, 방과후 수업 등 다양한 형태로 운영 가능합니다.<br />
+            대상과 환경에 맞춘 맞춤형 커리큘럼을 제안해드립니다.
+          </p>
+          <a
+            href="mailto:arkim12345@gmail.com"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#89B84C] to-[#F2C12E] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+          >
+            이사장에게 문의하기
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 3l7 6-7 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </a>
+        </div>
+      </section>
+    </div>
+  )
 }
 
-export default BasicSWEducation
+export default AdvancedPhysicalEdu
