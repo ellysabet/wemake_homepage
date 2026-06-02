@@ -64,7 +64,7 @@ const AdvancedPhysicalEdu = () => {
             실제 문제를 기술로 해결하는 프로젝트 중심 심화 교육입니다.
           </p>
           <a
-            href="mailto:arkim12345@gmail.com"
+            href="mailto:arkim12345@gmail.com" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-[#89B84C] to-[#F2C12E] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-all duration-300"
           >
             수업 문의하기
@@ -146,10 +146,10 @@ const AdvancedPhysicalEdu = () => {
             대상과 환경에 맞춘 맞춤형 커리큘럼을 제안해드립니다.
           </p>
           <a
-            href="mailto:arkim12345@gmail.com"
+            href="mailto:arkim12345@gmail.com" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-[#89B84C] to-[#F2C12E] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-all duration-300"
           >
-            이사장에게 문의하기
+            수업 문의하기
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 3l7 6-7 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </a>
         </div>
