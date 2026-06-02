@@ -1,165 +1,170 @@
-import logo from '../assets/logo.png'
-
 const HighCreativeEdu = () => {
-    const modules = [
-        {
-            title: 'AI Data Science',
-            desc: '실무 데이터를 활용한 딥러닝 모델링과 통계적 분석을 통해 유의미한 가치를 창출합니다.',
-            tags: ['Python', 'TensorFlow'],
-            icon: 'database',
-            color: 'bg-primary/5 text-primary'
-        },
-        {
-            title: 'Smart Convergence Systems',
-            desc: '임베디드 시스템과 클라우드 아키텍처를 결합한 지능형 서비스 프로토타입을 설계합니다.',
-            tags: ['C++', 'AWS'],
-            icon: 'memory',
-            color: 'bg-secondary/5 text-secondary'
-        },
-        {
-            title: 'Technical Engineering',
-            desc: '소프트웨어 아키텍처 최적화 및 엔지니어링 방법론을 적용하여 고성능 시스템을 구축합니다.',
-            tags: ['Architecture', 'DevOps'],
-            icon: 'settings_suggest',
-            color: 'bg-tertiary/5 text-tertiary'
-        }
-    ]
+  const features = [
+    {
+      icon: '🧠',
+      title: 'AI 활용 심화',
+      desc: '다양한 AI 도구를 직접 활용하고 원리를 이해하며, 실생활 문제 해결에 적용하는 심화 AI 교육을 제공합니다.',
+      color: 'border-t-[#2E4A7B]',
+    },
+    {
+      icon: '📊',
+      title: '데이터 분석',
+      desc: '실제 데이터를 수집·분석·시각화하여 의미 있는 인사이트를 도출하는 데이터 사이언스 기초를 경험합니다.',
+      color: 'border-t-[#89B84C]',
+    },
+    {
+      icon: '⚡',
+      title: '피지컬 융합 프로젝트',
+      desc: '마이크로비트, 아두이노 등 피지컬 컴퓨팅과 AI·데이터를 융합한 창의적 프로젝트를 기획하고 완성합니다.',
+      color: 'border-t-[#F2C12E]',
+    },
+    {
+      icon: '💡',
+      title: '창의 융합 설계',
+      desc: '사회 문제를 기술로 해결하는 창의적 아이디어를 발굴하고, 팀 협업으로 실제 구현까지 이끌어냅니다.',
+      color: 'border-t-[#2E4A7B]',
+    },
+  ]
 
-    const timeline = [
-        {
-            phase: 'Phase 01',
-            title: 'Advanced Analytics',
-            desc: '고난도 알고리즘과 수학적 모델링을 통해 논리적 해결 역량을 극대화합니다.',
-            color: 'bg-secondary'
-        },
-        {
-            phase: 'Phase 02',
-            title: 'System Convergence',
-            desc: '서로 다른 기술 도메인을 융합하여 새로운 가치를 만드는 실전 프로젝트를 수행합니다.',
-            color: 'bg-primary'
-        },
-        {
-            phase: 'Phase 03',
-            title: 'Social Impact Project',
-            desc: '사회의 문제를 기술로 해결하는 최종 결과물을 도출하고 실질적인 배포 과정을 경험합니다.',
-            color: 'bg-tertiary'
-        }
-    ]
+  const phases = [
+    {
+      phase: 'Phase 01',
+      title: '문제 탐색',
+      desc: '사회·환경·기술 분야에서 해결할 가치 있는 문제를 발견하고 데이터로 검증합니다.',
+      color: 'bg-[#2E4A7B]',
+    },
+    {
+      phase: 'Phase 02',
+      title: '기술 융합 설계',
+      desc: 'AI, 데이터 분석, 피지컬 컴퓨팅을 융합하여 솔루션을 설계하고 프로토타입을 구현합니다.',
+      color: 'bg-[#89B84C]',
+    },
+    {
+      phase: 'Phase 03',
+      title: '발표 & 피드백',
+      desc: '완성된 프로젝트를 발표하고 현장 전문가의 피드백을 반영해 결과물을 고도화합니다.',
+      color: 'bg-[#F2C12E]',
+    },
+  ]
 
-    return (
-        <div className="bg-white min-h-screen">
-            {/* Hero Section */}
-            <section className="relative pt-32 pb-24 overflow-hidden bg-white data-pattern border-b border-slate-50">
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-wemake-green/5 to-transparent pointer-events-none"></div>
-                
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    <div className="lg:col-span-7 flex flex-col space-y-6">
-                        <span className="font-bold text-xs text-wemake-green tracking-widest uppercase">Advanced Creative Convergence SW</span>
-                        {/* 폰트 사이즈 조정 및 제목 변경 */}
-                        <h1 className="text-3xl md:text-[52px] font-extrabold text-navy leading-[1.2] tracking-tight">
-                            고등 창의융합 심화교육: <br/>
-                            <span className="text-gradient">기술로 세상을 혁신하다</span>
-                        </h1>
-                        <p className="text-base md:text-lg text-slate-500 font-medium leading-relaxed max-w-xl">
-                            현업 수준의 AI 활용 능력과 융합적 문제 해결력을 기르는 프로젝트 중심 교육입니다. 
-                            단순 코딩을 넘어 미래 기술의 깊이와 통찰을 배우는 고등부 최상위 과정입니다.
-                        </p>
-                        <div className="flex flex-wrap gap-4 pt-4">
-                            <button className="btn-gradient px-8 py-4 shadow-lg shadow-wemake-green/20 flex items-center gap-2">
-                                전형 안내
-                                <span className="material-symbols-outlined text-xl">arrow_forward</span>
-                            </button>
-                            <button className="bg-slate-50 text-navy border border-slate-200 px-8 py-4 rounded-full font-bold hover:bg-slate-100 transition-colors flex items-center gap-2">
-                                정보 가이드북
-                                <span className="material-symbols-outlined text-xl">file_download</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="lg:col-span-5 relative h-[450px] w-full rounded-[2.5rem] overflow-hidden glass-card p-4 border-slate-100 shadow-2xl">
-                        <div className="absolute inset-0 bg-navy/5 opacity-30"></div>
-                        <div className="absolute inset-4 bg-white rounded-[2rem] shadow-sm border border-slate-50 flex flex-col overflow-hidden">
-                            <div className="h-10 bg-slate-50 flex items-center px-6 border-b border-slate-100 gap-2">
-                                <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
-                                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
-                                <div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
-                            </div>
-                            <div className="p-8 flex-1 bg-white font-mono text-[13px] text-slate-400 flex flex-col gap-4 overflow-hidden">
-                                <div><span className="text-navy font-bold">import</span> torch</div>
-                                <div><span className="text-navy font-bold">from</span> transformers <span className="text-navy font-bold">import</span> AutoModel</div>
-                                <br/>
-                                <div><span className="text-slate-300"># AI Convergence Model</span></div>
-                                <div>model = AutoModel.from_pretrained(<span className="text-wemake-green">'wemake-bert'</span>)</div>
-                                <div>output = model(input_ids, attention_mask)</div>
-                                
-                                <div className="w-full h-28 mt-auto rounded-3xl border border-slate-50 bg-slate-50/50 relative overflow-hidden">
-                                    <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-                                        <path d="M0,70 Q25,10 50,50 T100,20" fill="none" stroke="#89B84C" strokeWidth="2"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* PBL Cards Section */}
-            <section className="py-24">
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-20">
-                        <h2 className="text-3xl md:text-5xl font-extrabold text-navy mb-4 italic tracking-tight">Project PBL Modules</h2>
-                        <p className="text-slate-500 font-medium italic">다양한 학문과 기술의 융합을 통해 실천적 대안을 제시합니다.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {modules.map((module, index) => (
-                            <div key={index} className="glass-card rounded-[2.5rem] p-10 flex flex-col relative overflow-hidden group hover:-translate-y-3 transition-all duration-500 border-slate-50 bg-white">
-                                <div className="absolute -right-8 -top-8 w-32 h-32 bg-navy/5 rounded-full blur-2xl group-hover:bg-wemake-green/10 transition-colors"></div>
-                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${module.color}`}>
-                                    <span className="material-symbols-outlined text-3xl font-filled">{module.icon}</span>
-                                </div>
-                                <h3 className="text-2xl font-bold text-navy mb-4 italic">{module.title}</h3>
-                                <p className="text-slate-500 font-medium leading-relaxed flex-1 mb-8 text-[15px]">{module.desc}</p>
-                                <div className="flex gap-2 flex-wrap">
-                                    {module.tags.map(tag => (
-                                        <span key={tag} className="px-4 py-1.5 bg-slate-50 text-navy text-[11px] font-bold rounded-full uppercase tracking-wider">{tag}</span>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Learning Path Section */}
-            <section className="py-24 bg-slate-50/30 relative">
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-20 text-navy">
-                        <h2 className="text-3xl md:text-5xl font-extrabold italic tracking-tight">Advanced Learning Path</h2>
-                    </div>
-
-                    <div className="relative">
-                        {/* Vertical Line */}
-                        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 -translate-x-1/2 hidden md:block"></div>
-                        
-                        <div className="space-y-24 relative">
-                            {timeline.map((item, index) => (
-                                <div key={index} className={`relative flex flex-col md:flex-row items-center justify-between w-full ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-                                    <div className="absolute left-1/2 w-4 h-4 rounded-full bg-white border-4 border-navy -translate-x-1/2 z-10 hidden md:block"></div>
-                                    <div className={`md:w-5/12 w-full text-center md:text-left ${index % 2 === 0 ? 'md:text-right md:pr-16' : 'md:text-left md:pl-16'}`}>
-                                        <span className={`font-bold text-xs tracking-widest uppercase mb-3 block ${index === 0 ? 'text-wemake-green' : index === 1 ? 'text-navy' : 'text-wemake-yellow'}`}>{item.phase}</span>
-                                        <h4 className="text-2xl font-bold text-navy mb-4 italic">{item.title}</h4>
-                                        <p className="text-[15px] text-slate-500 font-medium leading-relaxed">{item.desc}</p>
-                                    </div>
-                                    <div className="md:w-5/12 hidden md:block"></div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
+  return (
+    <div className="bg-white min-h-screen">
+      {/* Hero */}
+      <section className="relative pt-32 pb-24 overflow-hidden bg-[#0A1628]">
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `linear-gradient(rgba(0,229,255,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.3) 1px,transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}/>
+        <div className="absolute top-1/2 left-1/3 w-96 h-96 bg-[#29B6F6]/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2"/>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10 text-center">
+          <span className="inline-block py-1.5 px-4 rounded-full border border-[#29B6F6]/40 text-[#29B6F6] font-bold text-xs mb-6 bg-[#29B6F6]/10">
+            고등학교
+          </span>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            고등 창의융합 심화교육
+            <br />
+            <span className="bg-gradient-to-r from-[#29B6F6] via-[#43E97B] to-[#F9C12E] bg-clip-text text-transparent">
+              기술로 세상을 혁신하다
+            </span>
+          </h1>
+          <p className="text-lg text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+            AI·데이터·피지컬 컴퓨팅을 융합한 고등부 최상위 과정.<br />
+            단순 코딩을 넘어 기술로 사회 문제를 해결하는 창의 융합 인재를 키웁니다.
+          </p>
+          <a
+            href="mailto:arkim12345@gmail.com"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#29B6F6] to-[#43E97B] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+          >
+            수업 문의하기
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 3l7 6-7 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </a>
         </div>
-    )
+      </section>
+
+      {/* 주요 교육 내용 */}
+      <section className="py-24 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-4 border border-navy/10">What We Teach</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4">주요 교육 내용</h2>
+            <p className="text-slate-500 font-medium">학교 및 학생 수준에 맞춰 유연하게 설계합니다.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {features.map((f, i) => (
+              <div key={i} className={`p-8 rounded-3xl border border-slate-100 border-t-4 ${f.color} hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white flex gap-6`}>
+                <div className="text-4xl shrink-0">{f.icon}</div>
+                <div>
+                  <h3 className="text-xl font-bold text-navy mb-3">{f.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium">{f.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 학습 흐름 */}
+      <section className="py-24 bg-slate-50/50">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-4 border border-navy/10">Learning Path</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy mb-4">프로젝트 중심 학습 흐름</h2>
+            <p className="text-slate-500 font-medium">발견에서 완성까지, 직접 만들며 성장하는 3단계 여정</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {phases.map((p, i) => (
+              <div key={i} className="bg-white rounded-3xl border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div className={`${p.color} px-8 py-5`}>
+                  <span className="text-white/70 text-xs font-bold uppercase tracking-widest">{p.phase}</span>
+                  <h3 className="text-white text-xl font-bold mt-1">{p.title}</h3>
+                </div>
+                <div className="p-8">
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium">{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 특징 배너 */}
+      <section className="py-20 bg-[#0A1628]">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {[
+              { icon: '🎯', title: '실습 70% 이상', desc: '핸즈온 중심 수업으로 주입식 교육 탈피' },
+              { icon: '🤝', title: '협업 기반 교육', desc: '수업 준비 부담을 덜어주는 맞춤형 커리큘럼 설계' },
+              { icon: '🚀', title: '최신 기술 반영', desc: '학생별 수준을 고려한 개별화 및 창의 융합 수업' },
+            ].map((item, i) => (
+              <div key={i} className="text-white">
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                <p className="text-white/50 text-sm font-medium leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-[800px] mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-navy mb-4">수업 의뢰 및 문의</h2>
+          <p className="text-slate-500 font-medium mb-8 leading-relaxed">
+            학교, 기관, 방과후 수업 등 다양한 형태로 운영 가능합니다.<br />
+            대상과 환경에 맞춘 맞춤형 커리큘럼을 제안해드립니다.
+          </p>
+          <a
+            href="mailto:arkim12345@gmail.com"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#29B6F6] to-[#43E97B] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+          >
+            이사장에게 문의하기
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 3l7 6-7 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </a>
+        </div>
+      </section>
+    </div>
+  )
 }
 
 export default HighCreativeEdu
