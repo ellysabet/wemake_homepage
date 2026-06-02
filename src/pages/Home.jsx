@@ -1,81 +1,366 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-// ─── 1. HERO ────────────────────────────────────────────────────────────────
-const Hero = () => (
-  <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0D1B3E] pt-20">
-    {/* 회로 기판 느낌 배경 패턴 */}
-    <div className="absolute inset-0 opacity-10"
-      style={{
-        backgroundImage: `
-          linear-gradient(rgba(137,184,76,0.4) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(137,184,76,0.4) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px'
-      }}
-    />
+// ─── HERO (Canvas 애니메이션) ─────────────────────────────────────────────────
+const Hero = () => {
+  const canvasRef = useRef(null)
 
-    {/* 그라디언트 블러 장식 */}
-    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-wemake-green/20 rounded-full blur-[120px] pointer-events-none" />
-    <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-wemake-yellow/15 rounded-full blur-[100px] pointer-events-none" />
+  useEffect(() => {
+    const cv = canvasRef.current
+    if (!cv) return
+    const ctx = cv.getContext('2d')
 
-    <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
-      {/* 태그 */}
-      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-wemake-green/40 text-wemake-green font-bold text-xs mb-10 bg-wemake-green/10">
-        <span className="w-2 h-2 rounded-full bg-wemake-green animate-pulse" />
-        CODING & EDUTECH COOPERATIVE
-      </div>
+    const resize = () => {
+      cv.width = cv.offsetWidth
+      cv.height = cv.offsetHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
 
-      {/* 메인 슬로건 */}
-      <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-        We Make<br />
-        <span className="bg-wemake-gradient bg-clip-text text-transparent">the Future</span>
-      </h1>
+    const W = () => cv.width
+    const H = () => cv.height
+    const sx = () => cv.width / 800
+    const sy = () => cv.height / 500
 
-      <p className="text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-12 leading-relaxed font-medium">
-        함께 만들고, 함께 배우며,<br />
-        미래를 함께 설계합니다.
-      </p>
+    const CYAN = '#00E5FF'
+    const YELLOW = '#F9C12E'
 
-      {/* 키워드 태그 */}
-      <div className="flex flex-wrap justify-center gap-3 mb-14">
-        {['AI', 'SW', 'IoT', 'DATA', 'EDUTECH'].map((tag) => (
-          <span
-            key={tag}
-            className="px-4 py-1.5 rounded-full border border-white/20 text-white/70 text-xs font-bold uppercase tracking-widest bg-white/5 hover:border-wemake-green/60 hover:text-wemake-green transition-all cursor-default"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+    // PCB 노드
+    const getNodes = () => [
+      {x:76,y:20,c:CYAN},{x:200,y:20,c:CYAN},{x:400,y:8,c:CYAN},
+      {x:600,y:20,c:CYAN},{x:724,y:8,c:CYAN},
+      {x:82,y:32,c:YELLOW},{x:400,y:22,c:YELLOW},{x:718,y:32,c:YELLOW},
+      {x:20,y:100,c:CYAN},{x:8,y:250,c:CYAN},{x:20,y:380,c:CYAN},
+      {x:32,y:106,c:YELLOW},{x:22,y:250,c:YELLOW},{x:32,y:374,c:YELLOW},
+      {x:780,y:100,c:CYAN},{x:792,y:250,c:CYAN},{x:780,y:380,c:CYAN},
+      {x:768,y:106,c:YELLOW},{x:778,y:250,c:YELLOW},{x:768,y:374,c:YELLOW},
+      {x:76,y:480,c:CYAN},{x:400,y:492,c:CYAN},{x:724,y:480,c:CYAN},
+      {x:82,y:468,c:YELLOW},{x:400,y:478,c:YELLOW},{x:718,y:468,c:YELLOW},
+    ]
 
-      {/* CTA 버튼 */}
-      <div className="flex flex-col sm:flex-row gap-4">
+    const getPCBLines = () => [
+      // 바깥 청록
+      {pts:[{x:8,y:8},{x:60,y:8},{x:76,y:20},{x:200,y:20},{x:390,y:20},{x:400,y:8},{x:600,y:8},{x:614,y:20},{x:724,y:8},{x:792,y:8}],c:CYAN,w:1.3,op:0.75},
+      {pts:[{x:8,y:8},{x:8,y:90},{x:20,y:100},{x:20,y:250},{x:20,y:370},{x:8,y:380},{x:8,y:492}],c:CYAN,w:1.3,op:0.75},
+      {pts:[{x:792,y:8},{x:792,y:90},{x:780,y:100},{x:780,y:250},{x:780,y:370},{x:792,y:380},{x:792,y:492}],c:CYAN,w:1.3,op:0.7},
+      {pts:[{x:8,y:492},{x:60,y:492},{x:76,y:480},{x:200,y:480},{x:390,y:480},{x:400,y:492},{x:600,y:492},{x:614,y:480},{x:724,y:480},{x:792,y:492}],c:CYAN,w:1.3,op:0.75},
+      // 안쪽 노란
+      {pts:[{x:20,y:20},{x:66,y:20},{x:82,y:32},{x:200,y:32},{x:388,y:32},{x:400,y:22},{x:600,y:22},{x:612,y:32},{x:718,y:32},{x:780,y:20}],c:YELLOW,w:1.0,op:0.6},
+      {pts:[{x:20,y:20},{x:20,y:96},{x:32,y:106},{x:32,y:250},{x:32,y:364},{x:20,y:374},{x:20,y:480}],c:YELLOW,w:1.0,op:0.6},
+      {pts:[{x:780,y:20},{x:780,y:96},{x:768,y:106},{x:768,y:250},{x:768,y:364},{x:780,y:374},{x:780,y:480}],c:YELLOW,w:1.0,op:0.55},
+      {pts:[{x:20,y:480},{x:66,y:480},{x:82,y:468},{x:200,y:468},{x:388,y:468},{x:400,y:478},{x:600,y:478},{x:612,y:468},{x:718,y:468},{x:780,y:480}],c:YELLOW,w:1.0,op:0.6},
+    ]
+
+    // 상태
+    let nodes = getNodes()
+    let pcbLines = getPCBLines()
+    let visNodes = [], visNodeSet = new Set()
+    let lineProgress = new Array(8).fill(0)
+    let phase = 0
+    let nodeTimer = 0, badgeTimer = 0
+    let badgeText = '', badgeIdx = 0
+    const BADGE = 'CODING & EDUTECH COOPERATIVE'
+    let titleAlpha = 0, gradP = 0, subAlpha = 0, tagsAlpha = 0
+    let logoAlpha = 0, logoScale = 0.6
+    let lastT = null
+
+    // 로고 이미지 로드
+    const logoImg = new Image()
+    logoImg.crossOrigin = 'anonymous'
+    logoImg.src = 'https://raw.githubusercontent.com/ellysabet/wemake_homepage/main/src/assets/logo.png'
+
+    function drawBg() {
+      ctx.fillStyle = '#0A1628'
+      ctx.fillRect(0, 0, W(), H())
+      const g = ctx.createRadialGradient(W()/2, H()/2, 0, W()/2, H()/2, W()*0.45)
+      g.addColorStop(0, 'rgba(29,233,182,0.06)')
+      g.addColorStop(1, 'rgba(10,22,40,0)')
+      ctx.fillStyle = g
+      ctx.fillRect(0, 0, W(), H())
+    }
+
+    function drawNode(n) {
+      ctx.save()
+      ctx.shadowBlur = 10
+      ctx.shadowColor = n.c
+      ctx.beginPath()
+      ctx.arc(n.x * sx(), n.y * sy(), 3, 0, Math.PI * 2)
+      ctx.fillStyle = n.c
+      ctx.fill()
+      ctx.restore()
+    }
+
+    function drawLine(line, progress) {
+      if (progress <= 0) return
+      const pts = line.pts
+      let segs = [], total = 0
+      for (let i = 1; i < pts.length; i++) {
+        const d = Math.hypot(pts[i].x - pts[i-1].x, pts[i].y - pts[i-1].y)
+        segs.push(d); total += d
+      }
+      const drawn = total * progress
+      let acc = 0
+      ctx.save()
+      ctx.strokeStyle = line.c
+      ctx.lineWidth = line.w
+      ctx.globalAlpha = line.op
+      ctx.shadowBlur = 5
+      ctx.shadowColor = line.c
+      ctx.beginPath()
+      ctx.moveTo(pts[0].x * sx(), pts[0].y * sy())
+      for (let i = 1; i < pts.length; i++) {
+        if (acc + segs[i-1] <= drawn) {
+          ctx.lineTo(pts[i].x * sx(), pts[i].y * sy())
+          acc += segs[i-1]
+        } else {
+          const t = (drawn - acc) / segs[i-1]
+          ctx.lineTo((pts[i-1].x + (pts[i].x - pts[i-1].x) * t) * sx(),
+                     (pts[i-1].y + (pts[i].y - pts[i-1].y) * t) * sy())
+          break
+        }
+      }
+      ctx.stroke()
+      ctx.restore()
+    }
+
+    function drawBadge(text, alpha) {
+      if (!text || alpha <= 0) return
+      const bw = 310, bh = 26
+      const bx = W()/2 - bw/2, by = H() * 0.17
+      ctx.save()
+      ctx.globalAlpha = alpha
+      ctx.strokeStyle = '#1DE9B6'
+      ctx.lineWidth = 1
+      ctx.fillStyle = 'rgba(29,233,182,0.08)'
+      ctx.beginPath()
+      ctx.roundRect(bx, by, bw, bh, 13)
+      ctx.fill(); ctx.stroke()
+      ctx.shadowBlur = 6; ctx.shadowColor = '#1DE9B6'
+      ctx.beginPath()
+      ctx.arc(bx + 15, by + bh/2, 3, 0, Math.PI * 2)
+      ctx.fillStyle = '#1DE9B6'; ctx.fill()
+      ctx.shadowBlur = 0
+      ctx.font = 'bold 10px sans-serif'
+      ctx.fillStyle = '#1DE9B6'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText(text, bx + bw/2 + 8, by + bh/2)
+      ctx.restore()
+    }
+
+    function makeGrad(y) {
+      const g = ctx.createLinearGradient(W()/2 - 240, y, W()/2 + 240, y)
+      g.addColorStop(0,    '#1565C0')
+      g.addColorStop(0.25, '#29B6F6')
+      g.addColorStop(0.5,  '#43E97B')
+      g.addColorStop(0.75, '#A8E063')
+      g.addColorStop(1,    '#F9C12E')
+      return g
+    }
+
+    function drawTitle(alpha, gp) {
+      if (alpha <= 0) return
+      const fs = Math.round(64 * sx())
+      const y1 = H() * 0.42, y2 = H() * 0.58
+      ctx.save()
+      ctx.font = `900 ${fs}px sans-serif`
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'alphabetic'
+
+      // We Make
+      ctx.globalAlpha = alpha
+      ctx.fillStyle = 'white'
+      ctx.fillText('We Make', W()/2, y1)
+      if (gp > 0) {
+        ctx.globalAlpha = alpha * gp
+        ctx.fillStyle = makeGrad(y1)
+        ctx.fillText('We Make', W()/2, y1)
+      }
+
+      // the Future
+      ctx.globalAlpha = alpha
+      ctx.fillStyle = 'white'
+      ctx.fillText('the Future', W()/2, y2)
+      if (gp > 0) {
+        ctx.globalAlpha = alpha * gp
+        ctx.fillStyle = makeGrad(y2)
+        ctx.fillText('the Future', W()/2, y2)
+      }
+      ctx.restore()
+    }
+
+    function drawLogo(alpha, scale) {
+      if (alpha <= 0 || !logoImg.complete) return
+      const lw = 300 * sx() * scale
+      const lh = lw * (logoImg.naturalHeight / logoImg.naturalWidth)
+      const lx = W()/2 - lw/2
+      const ly = H() * 0.28
+      ctx.save()
+      ctx.globalAlpha = alpha
+      ctx.drawImage(logoImg, lx, ly, lw, lh)
+      ctx.restore()
+    }
+
+    function drawSub(alpha) {
+      if (alpha <= 0) return
+      ctx.save()
+      ctx.globalAlpha = alpha * 0.55
+      ctx.fillStyle = 'white'
+      ctx.font = `400 ${Math.round(15 * sx())}px sans-serif`
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'alphabetic'
+      ctx.fillText('함께 만들고, 함께 배우며, 함께 미래를 설계합니다.', W()/2, H() * 0.82)
+      ctx.restore()
+    }
+
+    function drawTags(alpha) {
+      if (alpha <= 0) return
+      const tags = ['AI', 'SW', 'IoT', 'DATA', 'EDUTECH', 'Physical']
+      const tw = 62, th = 22, gap = 8
+      const total = tags.length * (tw + gap) - gap
+      let tx = W()/2 - total/2
+      const ty = H() * 0.89
+      ctx.save()
+      ctx.globalAlpha = alpha
+      tags.forEach(tag => {
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)'
+        ctx.lineWidth = 1
+        ctx.fillStyle = 'rgba(255,255,255,0.07)'
+        ctx.beginPath()
+        ctx.roundRect(tx, ty, tw, th, 11)
+        ctx.fill(); ctx.stroke()
+        ctx.fillStyle = 'rgba(255,255,255,0.7)'
+        ctx.font = 'bold 9px sans-serif'
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(tag, tx + tw/2, ty + th/2)
+        tx += tw + gap
+      })
+      ctx.restore()
+    }
+
+    function frame(ts) {
+      if (!lastT) lastT = ts
+      const dt = Math.min(ts - lastT, 50)
+      lastT = ts
+
+      drawBg()
+      visNodes.forEach(i => drawNode(nodes[i]))
+      pcbLines.forEach((l, i) => drawLine(l, lineProgress[i]))
+
+      if (phase === 0) {
+        // 노드 80ms 간격으로 랜덤 찍기
+        nodeTimer += dt
+        if (nodeTimer > 80) {
+          nodeTimer = 0
+          const rem = nodes.map((_,i)=>i).filter(i => !visNodeSet.has(i))
+          if (rem.length > 0) {
+            const pick = rem[Math.floor(Math.random() * rem.length)]
+            visNodes.push(pick); visNodeSet.add(pick)
+          } else {
+            phase = 1
+          }
+        }
+
+      } else if (phase === 1) {
+        // 선 그리기
+        let done = true
+        lineProgress = lineProgress.map((p, i) => {
+          const sp = i < 4 ? 0.007 : 0.006
+          const np = Math.min(1, p + sp * (dt/16))
+          if (np < 1) done = false
+          return np
+        })
+        if (done) phase = 2
+
+      } else if (phase === 2) {
+        // 배지 타이핑 90ms/글자
+        badgeTimer += dt
+        if (badgeTimer > 90) {
+          badgeTimer = 0
+          if (badgeIdx < BADGE.length) {
+            badgeIdx++; badgeText = BADGE.slice(0, badgeIdx)
+          } else { phase = 3 }
+        }
+        drawBadge(badgeText, 1)
+
+      } else if (phase === 3) {
+        // "We Make the Future" 천천히 등장
+        drawBadge(BADGE, 1)
+        titleAlpha = Math.min(1, titleAlpha + 0.012 * (dt/16))
+        drawTitle(titleAlpha, 0)
+        if (titleAlpha >= 1) phase = 4
+
+      } else if (phase === 4) {
+        // 그라데이션 입혀짐
+        drawBadge(BADGE, 1)
+        drawTitle(1, gradP)
+        gradP = Math.min(1, gradP + 0.010 * (dt/16))
+        if (gradP >= 1) phase = 5
+
+      } else if (phase === 5) {
+        // 타이틀 → 로고로 교체 (타이틀 페이드아웃, 로고 페이드인 + 확대)
+        drawBadge(BADGE, 1)
+        titleAlpha = Math.max(0, titleAlpha - 0.018 * (dt/16))
+        drawTitle(titleAlpha, 1)
+        logoAlpha = Math.min(1, logoAlpha + 0.018 * (dt/16))
+        logoScale = Math.min(1, logoScale + 0.008 * (dt/16))
+        drawLogo(logoAlpha, logoScale)
+        if (titleAlpha <= 0 && logoAlpha >= 1) phase = 6
+
+      } else if (phase === 6) {
+        // 서브텍스트 페이드인
+        drawBadge(BADGE, 1)
+        drawLogo(1, 1)
+        subAlpha = Math.min(1, subAlpha + 0.012 * (dt/16))
+        drawSub(subAlpha)
+        if (subAlpha >= 1) phase = 7
+
+      } else if (phase === 7) {
+        // 태그 등장 (PCB 라인 안쪽에 위치)
+        drawBadge(BADGE, 1)
+        drawLogo(1, 1)
+        drawSub(1)
+        tagsAlpha = Math.min(1, tagsAlpha + 0.015 * (dt/16))
+        drawTags(tagsAlpha)
+      }
+
+      requestAnimationFrame(frame)
+    }
+
+    const raf = requestAnimationFrame(frame)
+    return () => {
+      window.removeEventListener('resize', resize)
+      cancelAnimationFrame(raf)
+    }
+  }, [])
+
+  return (
+    <section className="relative w-full overflow-hidden" style={{height: '100vh'}}>
+      <canvas
+        ref={canvasRef}
+        style={{width: '100%', height: '100%', display: 'block'}}
+      />
+      {/* 하단 버튼 오버레이 */}
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col sm:flex-row gap-4 z-10">
         <Link
           to="/edu/basic"
-          className="bg-wemake-gradient text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-wemake-green/30 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300"
+          className="bg-wemake-gradient text-white px-10 py-4 rounded-full font-bold shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 text-center"
         >
           서비스 알아보기
         </Link>
         <Link
           to="/about"
-          className="border-2 border-white/30 text-white px-10 py-4 rounded-full font-bold hover:border-wemake-green hover:text-wemake-green transition-all duration-300 bg-white/5"
+          className="border-2 border-white/30 text-white px-10 py-4 rounded-full font-bold hover:border-wemake-green hover:text-wemake-green transition-all duration-300 bg-white/5 text-center"
         >
           조합 소개
         </Link>
       </div>
-    </div>
+    </section>
+  )
+}
 
-    {/* 아래 스크롤 유도 */}
-    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 text-xs font-bold tracking-widest animate-bounce">
-      <span>SCROLL</span>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    </div>
-  </section>
-)
-
-// ─── 2. 우리가 하는 일 ────────────────────────────────────────────────────────
+// ─── 우리가 하는 일 ───────────────────────────────────────────────────────────
 const WhatWeDo = () => {
   const services = [
     {
@@ -83,21 +368,21 @@ const WhatWeDo = () => {
       title: '학생 교육',
       desc: '초등부터 고등까지, 블록 코딩에서 AI·데이터 사이언스까지 수준별 맞춤 SW 교육을 제공합니다.',
       link: '/edu/basic',
-      accent: 'border-t-wemake-green',
+      accent: 'border-t-[#89B84C]',
     },
     {
       icon: '🏫',
       title: '교원 · 기관 연수',
       desc: '학교 교사와 교육 기관을 위한 SW·AI 연수 프로그램 및 맞춤형 커리큘럼을 설계합니다.',
       link: '/pro/institution',
-      accent: 'border-t-navy',
+      accent: 'border-t-[#2E4A7B]',
     },
     {
       icon: '🚀',
       title: '캠프 · 해커톤',
       desc: '창의적 아이디어가 발산되는 해커톤과 몰입형 SW 캠프를 기획부터 현장 운영까지 총괄합니다.',
       link: '/event/hackathon',
-      accent: 'border-t-wemake-yellow',
+      accent: 'border-t-[#F2C12E]',
     },
   ]
 
@@ -112,7 +397,6 @@ const WhatWeDo = () => {
             위메이크가 할 수 있는 것들
           </h2>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((s) => (
             <Link
@@ -139,7 +423,7 @@ const WhatWeDo = () => {
   )
 }
 
-// ─── 3. 최근 활동 (블로그 연동 예정 자리) ──────────────────────────────────────
+// ─── 최근 활동 ────────────────────────────────────────────────────────────────
 const RecentActivity = () => (
   <section className="py-28 bg-slate-50/50">
     <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
@@ -162,8 +446,6 @@ const RecentActivity = () => (
           </svg>
         </a>
       </div>
-
-      {/* 블로그 연동 전 플레이스홀더 */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[1, 2, 3].map((i) => (
           <a
@@ -194,20 +476,17 @@ const RecentActivity = () => (
   </section>
 )
 
-// ─── 4. CTA ──────────────────────────────────────────────────────────────────
+// ─── CTA ─────────────────────────────────────────────────────────────────────
 const CallToAction = () => (
-  <section className="py-28 bg-[#0D1B3E] relative overflow-hidden">
-    <div className="absolute inset-0 opacity-10"
+  <section className="py-28 bg-[#0A1628] relative overflow-hidden">
+    <div
+      className="absolute inset-0 opacity-10"
       style={{
-        backgroundImage: `
-          linear-gradient(rgba(137,184,76,0.4) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(137,184,76,0.4) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px'
+        backgroundImage: `linear-gradient(rgba(0,229,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.3) 1px, transparent 1px)`,
+        backgroundSize: '50px 50px'
       }}
     />
     <div className="absolute top-0 right-0 w-96 h-96 bg-wemake-green/10 rounded-full blur-[120px] pointer-events-none" />
-
     <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-8 text-center">
       <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
         함께 미래를 만들어갈<br />
@@ -220,7 +499,7 @@ const CallToAction = () => (
         href="mailto:arkim12345@gmail.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-3 bg-wemake-gradient text-white px-12 py-5 rounded-full font-bold text-lg shadow-xl shadow-wemake-green/30 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+        className="inline-flex items-center gap-3 bg-wemake-gradient text-white px-12 py-5 rounded-full font-bold text-lg shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
       >
         문의하기
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
